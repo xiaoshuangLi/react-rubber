@@ -171,3 +171,11 @@ export function getEles(selector) {
 
   return document.querySelectorAll(selector);
 }
+
+let baseId = new Date().getTime();
+
+export function getUId() {
+  baseId += 1;
+  
+  return baseId;
+}

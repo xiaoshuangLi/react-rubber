@@ -1,9 +1,8 @@
-
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 class Iconfont extends Component {
-
   render() {
     const { type, theme, className, ...others } = this.props;
     const cls = classnames({
@@ -17,7 +16,6 @@ class Iconfont extends Component {
       <i className={cls} {...others} />
     );
   }
-
 }
 
 Iconfont.propTypes = {
