@@ -1,0 +1,30 @@
+@import '~css/func';
+
+.components-not-found-render {
+  background: black;
+
+  @extend %fwhite;
+  @extend %full;
+
+  .text {
+    @extend %percenter;
+    @extend %tcenter;
+
+    &:before,
+    &:after {
+      line-height: 1.2;
+      font-size: 26px;
+      font-weight: bold;
+
+      @extend %inline-block;
+      @extend %wnowrap;
+    }
+
+    &:after {
+      font-size: 12px;
+      color: rgba(white, .6);
+      padding-bottom: 3px;
+      border-bottom: 1px solid currentColor;
+    }
+  }
+}
