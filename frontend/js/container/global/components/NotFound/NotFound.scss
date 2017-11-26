@@ -1,14 +1,14 @@
-@import '~css/func';
+@import '~css/func/index';
 
 .components-not-found-render {
   background: black;
 
-  @extend %fwhite;
+  @extend %color-white;
   @extend %full;
 
   .text {
     @extend %percenter;
-    @extend %tcenter;
+    @extend %text-align-center;
 
     &:before,
     &:after {
@@ -16,8 +16,11 @@
       font-size: 26px;
       font-weight: bold;
 
-      @extend %inline-block;
-      @extend %wnowrap;
+      @extend %white-space-nowrap;
+    }
+
+    &:before {
+      @extend %display-block;
     }
 
     &:after {
@@ -25,6 +28,8 @@
       color: rgba(white, .6);
       padding-bottom: 3px;
       border-bottom: 1px solid currentColor;
+
+      @extend %display-inline-block;
     }
   }
 }

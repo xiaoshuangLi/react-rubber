@@ -1,4 +1,4 @@
-@import "./func.scss";
+@import "./func/index";
 
 // Tag
 input,textarea,*{
@@ -21,7 +21,7 @@ input, textarea{
 input[type='number']::-webkit-inner-spin-button:before,
 input[type='number']::-webkit-inner-spin-button:after,
 input[type='number']::-webkit-inner-spin-button{
-  @extend %none;
+  @extend %display-none;
 }
 
 a{
@@ -36,33 +36,33 @@ body{
   font-weight: 100;
   height: 100vh;
 
-  @extend %bg-grey;
+  @extend %background-grey;
 }
 
 // Public Class
 .body{
-  @extend %relative;
+  @extend %position-relative;
 }
 
-.ng-hide{
-  @extend %none;
+.hide{
+  @extend %display-none;
 }
 
 .svg-hide{
-  @extend %transparent;
-  @extend %absolute;
+  @extend %opacity-0;
+  @extend %position-absolute;
 }
 
 .hidden{
-  @extend %hidden;
+  @extend %overflow-hidden;
 }
 
 .pointer{
-  @extend %pointer;
+  @extend %cursor-pointer;
 }
 
-.bg{
-  @extend %bg;
+.default-bg{
+  @extend %default-bg;
   z-index: -1;
 }
 
@@ -71,28 +71,28 @@ body{
 }
 
 .right{
-  @extend %right;
+  @extend %float-right;
 }
 
 .left{
-  @extend %left;
+  @extend %float-left;
 }
 
 .text-center{
-  @extend %tcenter;
+  @extend %text-align-center;
 }
 
 .text-left{
-  @extend %tleft;
+  @extend %text-align-left;
 }
 
 .text-right{
-  @extend %tright;
+  @extend %text-align-right;
 }
 
-.z-1{
-  @extend %z-1;
-  @extend %relative;
+.z-index-1{
+  @extend %z-index-1;
+  @extend %position-relative;
 }
 
 .transparent{
@@ -103,7 +103,7 @@ body{
   -webkit-mask-image: -webkit-gradient(linear, 0 0, 0 0, from(rgba(0,0,0,0)), to(rgba(0,0,0,0)));
 }
 
-.opacity-ani{
+.opacity-animation{
   animation: opacityFade 0.7s ease-in;
 }
 
@@ -128,7 +128,7 @@ body{
     $fwWidth : $i/20;
 
     width: percentage($fwWidth);
-    @extend %left;
+    @extend %float-left;
   }
 
   @media (max-width: 640px) {

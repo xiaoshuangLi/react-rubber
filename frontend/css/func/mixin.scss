@@ -1,15 +1,5 @@
-@import '~mathsass/dist/math';
+@import "./variable";
 
-// Public val
-$blue: rgb(194, 229, 156);
-$fontBlue: #3d99de;
-
-$green: rgb(100, 179, 244);
-
-$red: #ff5d5d;
-$grey: #f3f3f3;
-
-// Public mixin
 @mixin linearGradient($b: $blue, $c: $green, $a: to left) {
   background: -webkit-linear-gradient($a, $b , $c);
   background: linear-gradient($a, $b, $c);
@@ -49,7 +39,7 @@ $grey: #f3f3f3;
   }
 }
 
-@mixin mCenter($mt: 0px, $ml: 0px, $t: 50%, $l: 50%) {
+@mixin marginCenter($mt: 0px, $ml: 0px, $t: 50%, $l: 50%) {
   position: absolute;
   top: $t;
   left: $l;
@@ -67,169 +57,156 @@ $grey: #f3f3f3;
   }
 }
 
-// Public Attr
-%absolute{
+@import "./variable";
+
+@mixin position-absolute{
   position: absolute;
 }
 
-%relative{
+@mixin position-relative{
   position: relative;
 }
 
-%fixed{
+@mixin position-fixed{
   position: fixed;
 }
 
-%inline-block{
+@mixin display-inline-block{
   display: inline-block;
 }
 
-%block{
+@mixin display-block{
   display: block;
 }
 
-%none{
+@mixin display-none{
   display: none;
 }
 
-%w100{
+@mixin width-100{
   width: 100%;
 }
 
-%h100{
+@mixin height-100{
   height: 100%;
 }
 
-%hidden{
+@mixin visibility-hidden{
   visibility: hidden;
 }
 
-%ohidden{
+@mixin overflow-hidden{
   overflow: hidden;
 }
 
-%bg-grey{
+@mixin background-grey{
   background-color: $grey;
 }
 
-%pointer{
+@mixin cursor-pointer{
   cursor: pointer;
 }
 
-%transparent{
+@mixin opacity-0{
   opacity: 0;
 }
 
-%vmiddle{
+@mixin vertical-align-middle{
   vertical-align: middle;
 }
 
-%tcenter{
+@mixin text-align-center{
   text-align: center;
 }
 
-%tleft{
+@mixin text-align-left{
   text-align: left;
 }
 
-%tright{
+@mixin text-align-right{
   text-align: right;
 }
 
-%left{
+@mixin float-left{
   float: left;
 }
 
-%right{
+@mixin float-right{
   float: right;
 }
 
-%pnone{
+@mixin pointer-events-none{
   pointer-events: none;
 }
 
-%pall{
+@mixin pointer-events-all{
   pointer-events: all;
 }
 
-%bgwhite{
+@mixin background-color-white{
   background-color: white;
 }
 
-%fwhite{
+@mixin color-white{
   color: white;
 }
 
-%fred{
+@mixin color-red{
   color: $red;
 }
 
-%ifred{
-  color: $red !important;
-}
-
-%fblue{
+@mixin color-blue{
   color: $fontBlue;
 }
 
-%ifblue{
-  color: $fontBlue !important;
-}
-
-%overauto{
+@mixin overflow-auto{
   overflow: auto;
 }
 
-%overhidden{
+@mixin overflow-hidden{
   overflow: hidden;
 }
 
-%bhidden{
+@mixin backface-visibility-hidden{
   backface-visibility: hidden;
 }
 
-%wnowrap{
+@mixin white-space-nowrap{
   white-space: nowrap;
 }
 
-%bold{
+@mixin font-weight-bold{
   font-weight: bold;
 }
 
-%transitionlight{
-  transition-timing-function: cubic-bezier(1,1,1,1);
+@mixin border-radius-50{
+  border-radius: 50%;
 }
 
-%fa{
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  
-  @extend %inline-block;
+@mixin z-index-1{
+  z-index: 1
 }
 
-%fullwidth{
+@mixin full-width{
   left: 0;
   right: 0;
 
-  @extend %absolute;
+  @include position-absolute;
 }
 
-%fullheight{
+@mixin full-height{
   top: 0;
   bottom: 0;
 
-  @extend %absolute;
+  @include position-absolute;
 }
 
-%full{
-  @extend %fullheight;
-  @extend %fullwidth;
+@mixin full{
+  @include full-height;
+  @include full-width;
 }
 
-%noscroll{
+@mixin no-scroll{
   &::-webkit-scrollbar{
     background: transparent;
     opacity: 0;
@@ -237,21 +214,21 @@ $grey: #f3f3f3;
   }
 }
 
-%percenter{
+@mixin percenter{
   left: 50%;  
   top: 50%;  
   transform: translate(-50%, -50%);
 
-  @extend %absolute;
+  @include position-absolute;
 }
 
-%ellipsis{
+@mixin ellipsis{
   text-overflow: ellipsis;
-  @extend %wnowrap;
-  @extend %ohidden;
+  @include white-space-nowrap;
+  @include overflow-hidden;
 }
 
-%row{
+@mixin row{
   &:before, &:after{
     content: '';
     display: table;
@@ -259,60 +236,42 @@ $grey: #f3f3f3;
   }
 }
 
-%dflex{
+@mixin display-flex{
   display: flex;
 }
 
-%j-space-between{
+@mixin justify-content-space-between{
   justify-content: space-between;
 }
 
-%j-space-around{
+@mixin justify-content-space-around{
   justify-content: space-around;
 }
 
-%testflex{
+@mixin flex-column{
   flex-direction: column;
 
-  @extend %dflex;
-  @extend %j-space-between;
+  @include display-flex;
+  @include justify-content-space-between;
 }
 
-%testflex-around{
+@mixin flex-column-around{
   flex-direction: column;
 
-  @extend %dflex;
-  @extend %j-space-around;
+  @include display-flex;
+  @include justify-content-space-around;
 }
 
-%bg{
+@mixin default-bg{
   background-color: rgba(0,0,0,.3);
 
-  @extend %full;
-  @extend %fixed;
+  @include full;
+  @include position-fixed;
 }
 
-%border-radius-50{
-  border-radius: 50%;
-}
-
-%z-1{
-  z-index: 1
-}
-
-%fa{
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-smoothing: antialiased;
-
-  @extend %inline-block;
-}
-
-%table{
+@mixin table{
   display: table;
-  @extend %w100;
+  @include width-100;
 
   >*{
     display: table-cell;
@@ -324,7 +283,7 @@ $grey: #f3f3f3;
 
   &.center{
     >*{
-      @extend %vmiddle;
+      @include vertical-align-middle;
     }
   }
 }
