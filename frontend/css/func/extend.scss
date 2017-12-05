@@ -233,10 +233,14 @@
   }
 }
 
-%active-oacity {
+%active-opacity {
   transition: .2s;
 
   &:active {
+    opacity: .7;
+  }
+  
+  &:hover {
     opacity: .7;
   }
 }
