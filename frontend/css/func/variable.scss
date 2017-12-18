@@ -5,3 +5,62 @@ $green: rgb(100, 179, 244);
 
 $red: #ff5d5d;
 $grey: #f3f3f3;
+
+$store: (
+  position: (relative, absolute, fixed, table, table-cell),
+  display: (inline-block, block, none, flex),
+  padding: (0),
+  margin: (0),
+  width: (100%, 50%, 100vw),
+  height: (100%, 100vh),
+  left: (50%, -50%, 0),
+  right: (50%, -50%, 0),
+  top: (50%, -50%, 0),
+  bottom: (50%, -50%, 0),
+  visibility: (hidden, auto),
+  overflow: (hidden),
+  text-overflow: (ellipsis),
+  background-color: ($grey, white, transparent, rgba(black,.3)),
+  cursor: (pointer),
+  opacity: (0, .7),
+  text-align: (left, center, right),
+  float: (left, right),
+  pointer-events: (none, all),
+  color: (white, $red, $fontBlue),
+  backface-visibility: (hidden),
+  white-space: (nowrap),
+  font-weight: (bold, 100),
+  z-index: (1),
+  user-select: (none),
+  justify-content: (space-between, space-around),
+  flex-direction: (column),
+  transition: (.2s),
+  transform: (translate(-50%, -50%)),
+  clear: (both),
+  content: (''),
+  font-size: (12px),
+);
+
+@each $key, $list in $store {
+  $length: length($list);
+
+  @for $i from 1 through $length {
+    $item: nth($list, $i);
+
+    @at-root %#{$key}-#{$i} {
+      #{$key}: $item;
+    }
+  }
+}
+
+@mixin rules($styles, $mixin: false) {
+  @each $key, $value in $styles {
+    $list: map-get($store, $key);
+
+    @if $list and index($list, $value) and not $mixin {
+      @extend %#{$key}-#{index($list, $value)};
+    } @else {
+      #{$key}: $value;
+    }
+  }
+}

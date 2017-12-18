@@ -12,14 +12,6 @@
   background-repeat: no-repeat;
 }
 
-@mixin clearBoth{
-  &:before, &:after{
-    content: ' ';
-    display: table;
-    clear: both;
-  }
-}
-
 @mixin ellipsisMul($num: 1, $hei: ''){
   -webkit-line-clamp: $num;
   -webkit-box-orient: vertical;
@@ -57,249 +49,125 @@
   }
 }
 
-@import "./variable";
-
-@mixin position-absolute{
-  position: absolute;
+@mixin full-width {
+  @include rules((
+    left: 0,
+    right: 0,
+    position: absolute,
+  ), true);
 }
 
-@mixin position-relative{
-  position: relative;
+@mixin full-height {
+  @include rules((
+    top: 0,
+    bottom: 0,
+    position: absolute,
+  ), true);
 }
 
-@mixin position-fixed{
-  position: fixed;
-}
-
-@mixin display-inline-block{
-  display: inline-block;
-}
-
-@mixin display-block{
-  display: block;
-}
-
-@mixin display-none{
-  display: none;
-}
-
-@mixin width-100{
-  width: 100%;
-}
-
-@mixin height-100{
-  height: 100%;
-}
-
-@mixin visibility-hidden{
-  visibility: hidden;
-}
-
-@mixin overflow-hidden{
-  overflow: hidden;
-}
-
-@mixin background-grey{
-  background-color: $grey;
-}
-
-@mixin cursor-pointer{
-  cursor: pointer;
-}
-
-@mixin opacity-0{
-  opacity: 0;
-}
-
-@mixin vertical-align-middle{
-  vertical-align: middle;
-}
-
-@mixin text-align-center{
-  text-align: center;
-}
-
-@mixin text-align-left{
-  text-align: left;
-}
-
-@mixin text-align-right{
-  text-align: right;
-}
-
-@mixin float-left{
-  float: left;
-}
-
-@mixin float-right{
-  float: right;
-}
-
-@mixin pointer-events-none{
-  pointer-events: none;
-}
-
-@mixin pointer-events-all{
-  pointer-events: all;
-}
-
-@mixin background-color-white{
-  background-color: white;
-}
-
-@mixin color-white{
-  color: white;
-}
-
-@mixin color-red{
-  color: $red;
-}
-
-@mixin color-blue{
-  color: $fontBlue;
-}
-
-@mixin overflow-auto{
-  overflow: auto;
-}
-
-@mixin overflow-hidden{
-  overflow: hidden;
-}
-
-@mixin backface-visibility-hidden{
-  backface-visibility: hidden;
-}
-
-@mixin white-space-nowrap{
-  white-space: nowrap;
-}
-
-@mixin font-weight-bold{
-  font-weight: bold;
-}
-
-@mixin border-radius-50{
-  border-radius: 50%;
-}
-
-@mixin z-index-1{
-  z-index: 1
-}
-
-@mixin user-select-none {
-  user-select: none;
-}
-
-@mixin full-width{
-  left: 0;
-  right: 0;
-
-  @include position-absolute;
-}
-
-@mixin full-height{
-  top: 0;
-  bottom: 0;
-
-  @include position-absolute;
-}
-
-@mixin full{
+@mixin full {
   @include full-height;
   @include full-width;
 }
 
-@mixin no-scroll{
-  &::-webkit-scrollbar{
-    background: transparent;
-    opacity: 0;
-    display: none;
+@mixin no-scroll {
+  &::-webkit-scrollbar {
+    @include rules((
+      opacity: 0,
+      display: none,
+      background: transparent,
+    ), true);
   }
 }
 
-@mixin percenter{
-  left: 50%;  
-  top: 50%;  
-  transform: translate(-50%, -50%);
-
-  @include position-absolute;
+@mixin percenter {
+  @include rules((
+    left: 50%,  
+    top: 50%,  
+    transform: translate(-50%, -50%),
+    position: absolute,
+  ), true);
 }
 
-@mixin ellipsis{
-  text-overflow: ellipsis;
-  @include white-space-nowrap;
-  @include overflow-hidden;
+@mixin ellipsis {
+  @include rules((
+    text-overflow: ellipsis,
+    white-space: nowrap,
+    overflow: hidden,
+  ), true);
 }
 
-@mixin row{
-  &:before, &:after{
-    content: '';
-    display: table;
-    clear: both;
+@mixin row {
+  &:before, &:after {
+    @include rules((
+      content: '',
+      clear: both,
+      display: table,
+    ), true);
   }
 }
 
-@mixin display-flex{
-  display: flex;
+@mixin flex-column {
+  @include rules((
+    flex-direction: column,
+    display: flex,
+    justify-content: space-between,
+  ), true);
 }
 
-@mixin justify-content-space-between{
-  justify-content: space-between;
+@mixin flex-column-around {
+  @include rules((
+    flex-direction: column,
+    display: flex,
+    justify-content: space-around,
+  ), true);
 }
 
-@mixin justify-content-space-around{
-  justify-content: space-around;
-}
-
-@mixin flex-column{
-  flex-direction: column;
-
-  @include display-flex;
-  @include justify-content-space-between;
-}
-
-@mixin flex-column-around{
-  flex-direction: column;
-
-  @include display-flex;
-  @include justify-content-space-around;
-}
-
-@mixin default-bg{
-  background-color: rgba(0,0,0,.3);
-
+@mixin default-bg {
   @include full;
-  @include position-fixed;
+
+  @include rules((
+    position: fixed,
+    background-color: rgba(0,0,0,.3),
+  ), true);
 }
 
-@mixin table{
-  display: table;
-  @include width-100;
+@mixin table {
+  @include rules((
+    display: table,
+    width: 100%,
+  ), true);
 
-  >*{
-    display: table-cell;
+  > * {
+    @include rules((
+      display: table-cell,
+    ), true);
 
-    &.equal{
-      width: 50%;
+    &.equal {
+      @include rules((
+        width: 50%,
+      ), true);
     }
   }
 
-  &.center{
-    >*{
-      @include vertical-align-middle;
+  &.center {
+    > * {
+      @include rules((
+        vertical-align: middle,
+      ), true);
     }
   }
 }
 
 @mixin active-opacity {
-  transition: .2s;
+  @include rules((
+    transition: .2s,
+  ), true);
 
-  &:active {
-    opacity: .7;
-  }
-
+  &:active,
   &:hover {
-    opacity: .7;
+    @include rules((
+      opacity: .7,
+    ), true);
   }
 }

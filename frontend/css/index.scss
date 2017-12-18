@@ -1,5 +1,7 @@
 @import "./base";
 
 body{
-  @extend %background-color-white;
+  @include rules((
+    background-color: white,
+  ));
 }

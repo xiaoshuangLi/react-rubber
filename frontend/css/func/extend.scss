@@ -1,246 +1,124 @@
 @import "./variable";
 
-%position-absolute{
-  position: absolute;
+%full-width {
+  @include rules((
+    left: 0,
+    right: 0,
+    position: absolute,
+  ));
 }
 
-%position-relative{
-  position: relative;
+%full-height {
+  @include rules((
+    top: 0,
+    bottom: 0,
+    position: absolute,
+  ));
 }
 
-%position-fixed{
-  position: fixed;
-}
-
-%display-inline-block{
-  display: inline-block;
-}
-
-%display-block{
-  display: block;
-}
-
-%display-none{
-  display: none;
-}
-
-%width-100{
-  width: 100%;
-}
-
-%height-100{
-  height: 100%;
-}
-
-%visibility-hidden{
-  visibility: hidden;
-}
-
-%overflow-hidden{
-  overflow: hidden;
-}
-
-%background-grey{
-  background-color: $grey;
-}
-
-%cursor-pointer{
-  cursor: pointer;
-}
-
-%opacity-0{
-  opacity: 0;
-}
-
-%vertical-align-middle{
-  vertical-align: middle;
-}
-
-%text-align-center{
-  text-align: center;
-}
-
-%text-align-left{
-  text-align: left;
-}
-
-%text-align-right{
-  text-align: right;
-}
-
-%float-left{
-  float: left;
-}
-
-%float-right{
-  float: right;
-}
-
-%pointer-events-none{
-  pointer-events: none;
-}
-
-%pointer-events-all{
-  pointer-events: all;
-}
-
-%background-color-white{
-  background-color: white;
-}
-
-%color-white{
-  color: white;
-}
-
-%color-red{
-  color: $red;
-}
-
-%color-blue{
-  color: $fontBlue;
-}
-
-%overflow-auto{
-  overflow: auto;
-}
-
-%overflow-hidden{
-  overflow: hidden;
-}
-
-%backface-visibility-hidden{
-  backface-visibility: hidden;
-}
-
-%white-space-nowrap{
-  white-space: nowrap;
-}
-
-%font-weight-bold{
-  font-weight: bold;
-}
-
-%border-radius-50{
-  border-radius: 50%;
-}
-
-%z-index-1{
-  z-index: 1
-}
-
-%user-select-none {
-  user-select: none;
-}
-
-%full-width{
-  left: 0;
-  right: 0;
-
-  @extend %position-absolute;
-}
-
-%full-height{
-  top: 0;
-  bottom: 0;
-
-  @extend %position-absolute;
-}
-
-%full{
+%full {
   @extend %full-height;
   @extend %full-width;
 }
 
-%no-scroll{
-  &::-webkit-scrollbar{
-    background: transparent;
-    opacity: 0;
-    display: none;
+%no-scroll {
+  &::-webkit-scrollbar {
+    @include rules((
+      opacity: 0,
+      display: none,
+      background: transparent,
+    ));
   }
 }
 
-%percenter{
-  left: 50%;  
-  top: 50%;  
-  transform: translate(-50%, -50%);
-
-  @extend %position-absolute;
+%percenter {
+  @include rules((
+    left: 50%,
+    top: 50%,
+    transform: translate(-50%, -50%),
+    position: absolute,
+  ));
 }
 
-%ellipsis{
-  text-overflow: ellipsis;
-  @extend %white-space-nowrap;
-  @extend %overflow-hidden;
+%ellipsis {
+  @include rules((
+    text-overflow: ellipsis,
+    white-space: nowrap,
+    overflow: hidden,
+  ));
 }
 
-%row{
-  &:before, &:after{
-    content: '';
-    display: table;
-    clear: both;
+%row {
+  &:before, &:after {
+    @include rules((
+      content: '',
+      clear: both,
+      display: table,
+    ));
   }
 }
 
-%display-flex{
-  display: flex;
+%flex-column {
+  @include rules((
+    flex-direction: column,
+    display: flex,
+    justify-content: space-between,
+  ));
 }
 
-%justify-content-space-between{
-  justify-content: space-between;
+%flex-column-around {
+  @include rules((
+    flex-direction: column,
+    display: flex,
+    justify-content: space-around,
+  ));
 }
 
-%justify-content-space-around{
-  justify-content: space-around;
-}
-
-%flex-column{
-  flex-direction: column;
-
-  @extend %display-flex;
-  @extend %justify-content-space-between;
-}
-
-%flex-column-around{
-  flex-direction: column;
-
-  @extend %display-flex;
-  @extend %justify-content-space-around;
-}
-
-%default-bg{
-  background-color: rgba(0,0,0,.3);
-
+%default-bg {
   @extend %full;
-  @extend %position-fixed;
+
+  @include rules((
+    position: fixed,
+    background-color: rgba(0,0,0,.3),
+  ));
 }
 
-%table{
-  display: table;
-  @extend %width-100;
+%table {
+  @include rules((
+    display: table,
+    width: 100%,
+  ));
 
-  >*{
-    display: table-cell;
+  > * {
+    @include rules((
+      display: table-cell,
+    ));
 
-    &.equal{
-      width: 50%;
+    &.equal {
+      @include rules((
+        width: 50%,
+      ));
     }
   }
 
-  &.center{
-    >*{
-      @extend %vertical-align-middle;
+  &.center {
+    > * {
+      @include rules((
+        vertical-align: middle,
+      ));
     }
   }
 }
 
 %active-opacity {
-  transition: .2s;
+  @include rules((
+    transition: .2s,
+  ));
 
-  &:active {
-    opacity: .7;
-  }
-  
+  &:active,
   &:hover {
-    opacity: .7;
+    @include rules((
+      opacity: .7,
+    ));
   }
 }

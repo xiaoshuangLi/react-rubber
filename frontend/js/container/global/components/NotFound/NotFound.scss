@@ -3,12 +3,18 @@
 .components-not-found-render {
   background: black;
 
-  @extend %color-white;
   @extend %full;
+
+  @include rules((
+    color: white,
+  ));
 
   .text {
     @extend %percenter;
-    @extend %text-align-center;
+
+    @include rules((
+      text-align: center,
+    ));
 
     &:before,
     &:after {
@@ -16,20 +22,27 @@
       font-size: 26px;
       font-weight: bold;
 
-      @extend %white-space-nowrap;
+      @include rules((
+        text-align: bold,
+        white-space: nowrap,
+      ));
     }
 
     &:before {
-      @extend %display-block;
+      @include rules((
+        display: block,
+      ));
     }
 
     &:after {
-      font-size: 12px;
       color: rgba(white, .6);
       padding-bottom: 3px;
       border-bottom: 1px solid currentColor;
 
-      @extend %display-inline-block;
+      @include rules((
+        font-size: 12px,
+        display: inline-block,
+      ));
     }
   }
 }

@@ -1,7 +1,9 @@
 @import "./func/index";
 
 // Tag
-input,textarea,*{
+input,
+textarea,
+* {
   padding:0;
   margin:0;
   -webkit-tap-highlight-color: transparent;
@@ -14,128 +16,98 @@ input,textarea,*{
   border-radius: 0px;
 }
 
-input, textarea{
+input, textarea {
   -webkit-appearance: none;
 }
 
 input[type='number']::-webkit-inner-spin-button:before,
 input[type='number']::-webkit-inner-spin-button:after,
-input[type='number']::-webkit-inner-spin-button{
-  @extend %display-none;
+input[type='number']::-webkit-inner-spin-button {
+  @include rules((
+    display: none,
+  ));
 }
 
-a{
-  color: inherit;
-  text-decoration: none;
+a {
+  @include rules((
+    color: inherit,
+    text-decoration: none,
+  ));
 }
 
-body{
-  color: #666;
+body {
   font-family: "Hiragino Sans GB","Microsoft YaHei",simsun, Helvetica;
-  font-size: 12px;
-  font-weight: 100;
-  height: 100vh;
 
-  @extend %background-grey;
+  @include rules((
+    color: #666,
+  ));
+
+  @include rules((
+    font-size: 12px,
+    font-weight: 100,
+    height: 100vh,
+    background: $grey,
+  ));
 }
 
 // Public Class
-.body{
-  @extend %position-relative;
+.body {
+  @include rules((
+    position: relative,
+  ));
 }
 
-.hide{
-  @extend %display-none;
+.hide {
+  @include rules((
+    display: none,
+  ));
 }
 
-.svg-hide{
-  @extend %opacity-0;
-  @extend %position-absolute;
+.svg-hide {
+  @include rules((
+    opacity: 0,
+    position: absolute,
+  ));
 }
 
-.hidden{
-  @extend %overflow-hidden;
-}
-
-.pointer{
-  @extend %cursor-pointer;
-}
-
-.default-bg{
-  @extend %default-bg;
-  z-index: -1;
-}
-
-.row{
+.row {
   @extend %row;
 }
 
-.right{
-  @extend %float-right;
+.z-index-1 {
+  @include rules((
+    z-index: 1,
+    position: relative,
+  ));
 }
 
-.left{
-  @extend %float-left;
+.transparent {
+  @include rules((
+    opacity: 0,
+  ));
 }
 
-.text-center{
-  @extend %text-align-center;
-}
-
-.text-left{
-  @extend %text-align-left;
-}
-
-.text-right{
-  @extend %text-align-right;
-}
-
-.z-index-1{
-  @extend %z-index-1;
-  @extend %position-relative;
-}
-
-.transparent{
-  opacity: 0;
-}
-
-.mask-hide{
+.mask-hide {
   -webkit-mask-image: -webkit-gradient(linear, 0 0, 0 0, from(rgba(0,0,0,0)), to(rgba(0,0,0,0)));
 }
 
-.opacity-animation{
+.opacity-animation {
   animation: opacityFade 0.7s ease-in;
 }
 
-.table{
+.table {
   @extend %table;
 }
 
 [data-before] {
-  &:before{
+  &:before {
     content: attr(data-before);
   }
 }
 
 [data-after] {
-  &:after{
+  &:after {
     content: attr(data-after);
-  }
-}
-
-@for $i from 1 through 20 {
-  .fw-#{$i * 5} {
-    $fwWidth : $i/20;
-
-    width: percentage($fwWidth);
-    @extend %float-left;
-  }
-
-  @media (max-width: 640px) {
-    .fw-#{$i * 5}:not(.all){
-      width: 100%;
-      padding: 0 15px;
-    }
   }
 }
 
