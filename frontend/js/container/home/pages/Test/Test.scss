@@ -8,6 +8,7 @@ $img: '~img/ed.jpeg';
 
 .example {
   border-top: 1px solid transparent;
+
   @include line;
 }
 
