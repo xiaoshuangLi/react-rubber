@@ -1,5 +1,3 @@
-@import "./variable";
-
 @mixin linearGradient($b: $blue, $c: $green, $a: to left) {
   background: -webkit-linear-gradient($a, $b , $c);
   background: linear-gradient($a, $b, $c);

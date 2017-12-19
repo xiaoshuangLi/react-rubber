@@ -1,4 +1,40 @@
-@import "./variable";
+$keys: ();
+$values: ();
+
+@mixin generator($key, $value) {
+  $keys: append($keys, $key) !global;
+  $values: append($values, $value) !global;
+
+  $keyIndex: length($keys);
+  $valueIndex: length($values);
+
+  @at-root %#{$keyIndex}-#{$valueIndex} {
+    #{$key}: $value;
+  }
+
+  @extend %#{$keyIndex}-#{$valueIndex};
+}
+
+@mixin style($key, $value) {
+  #{$key}: $value;
+}
+
+@mixin rules($styles, $mixin: false) {
+  @each $key, $value in $styles {
+    @if $mixin {
+      @include style($key, $value);
+    } @else {
+      $keyIndex: index($keys, $key);
+      $valueIndex: index($values, $value);
+
+      @if $keyIndex and $keyIndex == $valueIndex {
+        @extend %#{$keyIndex}-#{$valueIndex};
+      } @else {
+        @include generator($key, $value);
+      }
+    }
+  }
+}
 
 %full-width {
   @include rules((
@@ -121,8 +157,4 @@
       opacity: .7,
     ));
   }
-}
-
-%test {
-  color: red;
 }
