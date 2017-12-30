@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
-var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackDevMiddleware = require('webpack-dev-middleware');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanPlugin = require('clean-webpack-plugin');
@@ -8,7 +8,7 @@ var htmlMinify = require('html-minifier');
 var pro = process.env.NODE_ENV == 'production';
 var rootPath = path.resolve(__dirname, '..');
 
-var babelConfig = require('../babel.json');
+var babelConfig = require('../babel')(false);
 var babelrcObjectDevelopment = babelConfig.env && babelConfig.env.development || {};
 
 // merge global and dev-only presets & plugins
@@ -19,8 +19,9 @@ combinedPresets = combinedPresets.concat(babelrcObjectDevelopment.presets);
 
 var babelLoaderQuery = Object.assign({}, babelConfig, {
   presets: combinedPresets,
-  plugins: combinedPlugins
+  plugins: combinedPlugins,
 });
+
 delete babelLoaderQuery.env;
 
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -136,7 +137,7 @@ module.exports = {
         test: /^(?!.*(\_inline)).*\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: babelLoaderQuery
+        query: babelLoaderQuery,
       },
       {
         test: /\_inline\.(js|jsx)$/,

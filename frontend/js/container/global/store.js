@@ -44,4 +44,4 @@ const createStoreWithHistory = (history) => {
 const history = createBrowserHistory();
 const store = createStoreWithHistory(history);
 
-export default { store, history };
+export { store, history };
