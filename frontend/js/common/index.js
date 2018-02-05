@@ -84,53 +84,6 @@ export function validInput(el){
   return true
 }
 
-export function map(list = [], cb) {
-  for(let v = 0, l = list.length; v < l; v++ ) {
-    cb&&cb(list[v])
-  }
-}
-
-export function getChildren(ele, parent) {
-  ele = ele.length ? ele : [ele]
-
-  let list = [];
-  map(ele, curr => {
-    let children = curr.children || []
-
-    map(children, child => {
-      list.push(child)
-    })
-
-    parent === -1 && list.unshift(curr)
-    parent === 1 && list.push(curr)
-  })
-
-  return list
-}
-
-export function getChildrenByLevel(ele = document, level = 1, parent = 0) {
-  let list = ele.length ? ele : [ele]
-
-  for(let v = 0; v <= level; v++) {
-    list = getChildren(list, parent)
-  }
-
-  return list
-}
-
-export function getFromArr(arr = [],attr = 'id', val = '', index = false ) {
-
-  for( let v = 0, l = arr.length; v < l; v++ ) {
-    let item = arr[v]
-
-    if(item[attr] === val) {
-      return index ? v : item
-    }
-  }
-
-  return index ? -1 : {}
-}
-
 export function timeout(cb, time) {
   if (!cb) {
     return;
