@@ -1,44 +1,32 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import App from 'js/components/App';
 
-const createChildrenRoute = (routes = []) => (props) => {
-  const { match = {} } = props;
-  const { url = '' } = match;
-
+const createChildrenRoute = (basePath, routes) => {
   const items = routes.map((route = {}, i) => {
     const { path = '', children, ...others } = route;
 
     return (
-      <Route path={`${url}${path}`} {...others} key={i}>
+      <Route path={`${basePath}${path}`} {...others} key={i}>
         { children }
       </Route>
     );
   });
 
-  return (
-    <App>
-      <Switch>
-        { items }
-      </Switch>
-    </App>
-  );
+  return items;
 };
 
 class RelativeRouter extends Component {
   render() {
-    const {
-      path = '',
-      children,
-      routes = [],
-      ...others
-    } = this.props;
+    const { path, routes = [], ...others } = this.props;
+
+    const items = createChildrenRoute(path, routes);
 
     return (
-      <Route path={path} {...others} component={createChildrenRoute(routes)}>
-        { children }
-      </Route>
+      <App {...others}>
+        { items }
+      </App>
     );
   }
 }
