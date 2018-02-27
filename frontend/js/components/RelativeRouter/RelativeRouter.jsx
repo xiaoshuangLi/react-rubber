@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import App from 'js/components/App';
 
-const createChildrenRoute = (basePath = '', routes = []) => {
+const createChildrenRoutes = (basePath = '', routes = []) => {
   const items = routes.map((route = {}, i) => {
     const { path = '', children, ...others } = route;
 
@@ -26,7 +26,7 @@ class RelativeRouter extends Component {
       ...others
     } = this.props;
 
-    const items = createChildrenRoute(path, routes);
+    const items = createChildrenRoutes(path, routes);
 
     return (
       <App {...others}>
@@ -38,6 +38,6 @@ class RelativeRouter extends Component {
   }
 }
 
-RelativeRouter.createChildrenRoute = createChildrenRoute;
+RelativeRouter.createChildrenRoutes = createChildrenRoutes;
 
 export default RelativeRouter;
