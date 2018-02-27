@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import App from 'js/components/App';
 
@@ -19,13 +19,20 @@ const createChildrenRoute = (basePath = '', routes = []) => {
 
 class RelativeRouter extends Component {
   render() {
-    const { path = '', routes = [], ...others } = this.props;
+    const {
+      path = '',
+      routes = [],
+      location = {},
+      ...others
+    } = this.props;
 
     const items = createChildrenRoute(path, routes);
 
     return (
       <App {...others}>
-        { items }
+        <Switch location={location}>
+          { items }
+        </Switch>
       </App>
     );
   }
