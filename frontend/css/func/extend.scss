@@ -1,8 +1,5 @@
 $store: ();
 
-// $keys: ();
-// $values: ();
-
 @mixin generator($key, $value) {
   $storeValue: map-get($store, $key);
 
@@ -24,18 +21,6 @@ $store: ();
   }
 
   @extend %#{$key}-#{$storeValueIndex};
-
-  // $keys: append($keys, $key) !global;
-  // $values: append($values, $value) !global;
-
-  // $keyIndex: length($keys);
-  // $valueIndex: length($values);
-
-  // @at-root %#{$keyIndex}-#{$valueIndex} {
-  //   #{$key}: $value;
-  // }
-
-  // @extend %#{$keyIndex}-#{$valueIndex};
 }
 
 @mixin style($key, $value) {
@@ -55,15 +40,6 @@ $store: ();
       } @else {
         @include generator($key, $value);
       }
-
-      // $keyIndex: index($keys, $key);
-      // $valueIndex: index($values, $value);
-
-      // @if $keyIndex and $keyIndex == $valueIndex {
-      //   @extend %#{$keyIndex}-#{$valueIndex};
-      // } @else {
-      //   @include generator($key, $value);
-      // }
     }
   }
 }
