@@ -1,18 +1,41 @@
-$keys: ();
-$values: ();
+$store: ();
+
+// $keys: ();
+// $values: ();
 
 @mixin generator($key, $value) {
-  $keys: append($keys, $key) !global;
-  $values: append($values, $value) !global;
+  $storeValue: map-get($store, $key);
 
-  $keyIndex: length($keys);
-  $valueIndex: length($values);
+  @if $storeValue {
+    $storeValue: append($storeValue, $value);
+  } @else {
+    $storeValue: ($value);
+  }
 
-  @at-root %#{$keyIndex}-#{$valueIndex} {
+  $storeValueIndex: index($storeValue, $value);
+  $newStore: (
+    $key: $storeValue,
+  );
+
+  $store: map-merge($store, $newStore) !global;
+
+  @at-root %#{$key}-#{$storeValueIndex} {
     #{$key}: $value;
   }
 
-  @extend %#{$keyIndex}-#{$valueIndex};
+  @extend %#{$key}-#{$storeValueIndex};
+
+  // $keys: append($keys, $key) !global;
+  // $values: append($values, $value) !global;
+
+  // $keyIndex: length($keys);
+  // $valueIndex: length($values);
+
+  // @at-root %#{$keyIndex}-#{$valueIndex} {
+  //   #{$key}: $value;
+  // }
+
+  // @extend %#{$keyIndex}-#{$valueIndex};
 }
 
 @mixin style($key, $value) {
@@ -24,14 +47,23 @@ $values: ();
     @if $mixin {
       @include style($key, $value);
     } @else {
-      $keyIndex: index($keys, $key);
-      $valueIndex: index($values, $value);
+      $storeValue: map-get($store, $key);
+      $storeValueIndex: index($storeValue, $value);
 
-      @if $keyIndex and $keyIndex == $valueIndex {
-        @extend %#{$keyIndex}-#{$valueIndex};
+      @if $storeValue and $storeValueIndex {
+        @extend %#{$key}-#{$storeValueIndex};
       } @else {
         @include generator($key, $value);
       }
+
+      // $keyIndex: index($keys, $key);
+      // $valueIndex: index($values, $value);
+
+      // @if $keyIndex and $keyIndex == $valueIndex {
+      //   @extend %#{$keyIndex}-#{$valueIndex};
+      // } @else {
+      //   @include generator($key, $value);
+      // }
     }
   }
 }
