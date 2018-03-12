@@ -13,7 +13,7 @@ if (window.__data) {
 const configureStore = (history, initialState) => {
   const reduxRouterMiddleware = routerMiddleware(history);
 
-  const middleware = [reduxRouterMiddleware, thunkMiddleware, promiseThunk];
+  const middleware = [reduxRouterMiddleware, promiseThunk, thunkMiddleware];
 
   const finalCreateStore = applyMiddleware(...middleware)(createStore);
 
