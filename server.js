@@ -1,5 +1,5 @@
 // require('dotenv').config({ silent: true });
-require('./webpack/webpack.config')
+require('./webpack/webpack.config');
 require('./server.babel');
 
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools');

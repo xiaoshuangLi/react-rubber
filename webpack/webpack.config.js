@@ -40,42 +40,41 @@ var postLoader = {
   },
 };
 
-function gPlugins(){
+function gPlugins() {
   var res = [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendors' }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [ 
-          require('autoprefixer')({
-            browsers: ['last 4 version']
-          }),
-          require('cssnano')(),
-        ]
-      }
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function(module) {
+        return module.context && module.context.includes('node_modules');
+      },
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity,
+    }),
+    new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
-      filename: "css/[name].css",
-      allChunks: true
+      filename: 'css/[name].css',
+      allChunks: true,
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: './index.html',
       hash: true,
       cache: true,
       inject: true,
-      minify: pro ? htmlMinify: false,
+      minify: pro ? htmlMinify : false,
       dev: !pro,
-      chunks: ['vendors', 'global'],
+      chunks: ['vendor', 'manifest', 'global'],
       // excludeChunks: ['dev'],
-      filename: 'html/index.html'
-    })
+      filename: 'html/index.html',
+    }),
   ];
 
-  if(pro) {
+  if (pro) {
     res.push(new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -96,19 +95,18 @@ function gPlugins(){
 
 module.exports = {
   devtool: pro ? 'hidden-source-map' : 'source-map',
- 
   entry: {
-    global: pro ? [rootPath + '/frontend/js/index.js']: [
-      'webpack-hot-middleware/client', 
+    global: pro ? [rootPath + '/frontend/js/index.js'] : [
+      'webpack-hot-middleware/client',
       'webpack/hot/only-dev-server',
-      rootPath + '/frontend/js/index.js'
+      rootPath + '/frontend/js/index.js',
     ],
   },
   output: {
-    path: rootPath +  '/public/',
+    path: rootPath + '/public/',
     filename: 'js/[name].js',
     chunkFilename: 'js/[name].[chunkhash:8].js',
-    publicPath: '/'
+    publicPath: '/',
   },
 
   resolve: {
@@ -133,7 +131,7 @@ module.exports = {
       },
       {
         test: /\_inline\.svg$/i,
-        loader: 'babel-loader?presets[]=es2015,presets[]=react!svg-react-loader'
+        loader: 'babel-loader?presets[]=es2015,presets[]=react!svg-react-loader',
       },
       {
         test: /^(?!.*(\_b|\_inline)).*\.(jpe?g|png|gif|svg)$/i,
@@ -157,7 +155,7 @@ module.exports = {
               },
             },
           },
-        ]
+        ],
       },
       {
         test: /\_b\.(jpe?g|png|gif|svg)$/i,
@@ -181,18 +179,17 @@ module.exports = {
               },
             },
           },
-        ]
+        ],
       },
       {
         test: /\.scss$/,
         use: pro ? ExtractTextPlugin.extract({
-          fallback: 'style-loader', 
-          use: ['css-loader?minimize', 'resolve-url-loader', postLoader,'sass-loader']
-        })
-        : ['style-loader', 'css-loader?minimize', 'resolve-url-loader', postLoader,'sass-loader']
+          fallback: 'style-loader',
+          use: ['css-loader?minimize', 'resolve-url-loader', postLoader, 'sass-loader'],
+        }) : ['style-loader', 'css-loader?minimize', 'resolve-url-loader', postLoader, 'sass-loader'],
       },
     ],
   },
 
-  plugins: gPlugins()
-}
+  plugins: gPlugins(),
+};

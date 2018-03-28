@@ -18,22 +18,22 @@ module.exports = {
         'jpeg',
         'jpg',
         'png',
-        'gif'
+        'gif',
       ],
-      parser: WebpackIsomorphicToolsPlugin.url_loader_parser
+      parser: WebpackIsomorphicToolsPlugin.url_loader_parser,
     },
     fonts: {
       extensions: [
         'woff',
         'woff2',
         'ttf',
-        'eot'
+        'eot',
       ],
-      parser: WebpackIsomorphicToolsPlugin.url_loader_parser
+      parser: WebpackIsomorphicToolsPlugin.url_loader_parser,
     },
     svg: {
       extension: 'svg',
-      parser: WebpackIsomorphicToolsPlugin.url_loader_parser
+      parser: WebpackIsomorphicToolsPlugin.url_loader_parser,
     },
     styles: {
       extension: 'scss',
@@ -66,7 +66,7 @@ module.exports = {
           // in production mode there's Extract Text Loader which extracts CSS text away
           return module.source;
         }
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};

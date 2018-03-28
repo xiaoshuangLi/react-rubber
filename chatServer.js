@@ -15,7 +15,7 @@ app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output
 app.use(webpackHotMiddleware(compiler))
 
 io.on('connection', function(socket) {
-  count ++;
+  count += 1;
   console.log('Got ' + count);
 
   socket.on('login', function() {});
@@ -28,9 +28,9 @@ io.on('connection', function(socket) {
 });
 
 app.get("*", function(req, res) {
-  res.sendFile(__dirname + '/index.html')
-})
+  res.sendFile(__dirname + '/index.html');
+});
 
 http.listen(3000, function() {
   console.log('listening on *:3000');
-})
+});
