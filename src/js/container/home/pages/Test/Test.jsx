@@ -16,7 +16,7 @@ class Test extends Component {
 
     return (
       <div className="page-home-test-render example">
-        test2222
+        test
       </div>
     );
   }
