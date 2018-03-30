@@ -23,7 +23,6 @@
       font-weight: bold;
 
       @include rules((
-        text-align: bold,
         white-space: nowrap,
       ));
     }
