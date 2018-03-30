@@ -1,0 +1,8 @@
+{
+	"plugins":
+	{
+		"postcss-cssnext": {},
+		"postcss-write-svg": {},
+		"postcss-reporter": {}
+	}
+}

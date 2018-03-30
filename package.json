@@ -7,27 +7,42 @@
     "url": "git@github.com:xiaoshuangLi/devtool.git"
   },
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
-    "dev": "NODE_ENV=development node server.js",
-    "build": "NODE_ENV=production webpack --config webpack/webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run production",
+    "dev": "npm-run-all development:server:build:prepare development",
+    "development": "npm-run-all --parallel development:client:build development:server:build development:services",
+    "development:server:build:prepare": "universal-webpack --settings ./webpack/universal-webpack-settings.json prepare",
+    "development:client:build": "babel-node ./webpack/webpack-dev-server.js",
+    "development:server:build": "webpack --mode development --config ./webpack/webpack.config.server.development.babel.js --watch --colors --display-error-details",
+    "development:server": "nodemon ./server/index.entry.js --watch ./server --watch ./public/server",
+    "development:services": "npm-run-all --parallel development:server",
+    "production": "npm-run-all production:client:build production:server:build production:services",
+    "production:client:build": "webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.client.production.babel.js",
+    "production:server:build": "webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.server.production.babel.js",
+    "production:server": "better-npm-run production:server",
+    "production:services": "npm-run-all --parallel production:server"
+  },
+  "betterScripts": {
+    "production:server": {
+      "command": "node ./server/index.entry.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
   },
   "keywords": [
     "express",
     "react",
-    "redux",
-    "jquery"
+    "redux"
   ],
   "author": "Xiaoshuang",
   "homepage": "http://xiaodifang.club",
   "dependencies": {
     "classnames": "^2.2.5",
     "dotenv": "^4.0.0",
-    "es6-promise": "^4.0.5",
     "express": "^4.16.2",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
-    "postcss-write-svg": "^3.0.1",
+    "lodash": "^4.17.5",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.1.1",
@@ -43,17 +58,22 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-promise-to-bluebird": "^1.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
+    "better-npm-run": "^0.1.0",
+    "bluebird": "^3.5.1",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.4",
     "ejs-loader": "^0.3.0",
@@ -62,15 +82,14 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.0.1",
-    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
-    "html-loader": "^0.5.0",
-    "html-minifier": "^3.5.6",
-    "html-webpack-plugin": "^2.22.0",
     "image-webpack-loader": "^3.4.2",
     "jsx-loader": "^0.13.2",
     "mathsass": "^0.10.1",
+    "mini-css-extract-plugin": "^0.3.0",
     "node-sass": "^4.6.1",
+    "nodemon": "^1.17.2",
+    "npm-run-all": "^4.1.2",
     "postcss": "^6.0.14",
     "postcss-cssnext": "^3.1.0",
     "postcss-extend": "^1.0.5",
@@ -80,15 +99,20 @@
     "postcss-nested": "^2.1.0",
     "postcss-reporter": "^5.0.0",
     "postcss-simple-vars": "^4.0.0",
-    "react-hot-loader": "^3.1.3",
+    "postcss-write-svg": "^3.0.1",
+    "react-hot-loader": "^4.0.0",
     "resolve-url-loader": "^2.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "svg-react-loader": "^0.4.4",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "universal-webpack": "^0.6.2",
     "url-loader": "^0.6.2",
-    "webpack": "^3.10.0",
+    "webpack": "^4.3.0",
+    "webpack-cli": "^2.0.13",
     "webpack-dev-middleware": "^1.8.2",
     "webpack-hot-middleware": "^2.20.0",
-    "webpack-isomorphic-tools": "^3.0.5"
+    "webpack-isomorphic-tools": "^3.0.5",
+    "webpack-visualizer-plugin": "^0.1.11"
   }
 }
