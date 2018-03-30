@@ -28,6 +28,7 @@ const partHtmlTemp = splitHtmlTemp`
     <html>
     <head>
       <meta http-equiv="content-language" content="zh-CN">
+      <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
       <meta name="viewport" content="initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0,viewport-fit=cover">
       <meta name="format-detection" content="telephone=no>
