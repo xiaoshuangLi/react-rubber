@@ -3,7 +3,7 @@ import baseConfig from './webpack.config.client';
 import appConfig from '../config';
 
 const config = baseConfig({
-  development: true,
+  mode: 'development',
 });
 
 config.devtool = 'source-map';

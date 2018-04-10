@@ -7,6 +7,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import baseConfig from './webpack.config.client';
 
 const config = baseConfig({
+  mode: 'production',
   development: false,
   useMiniCssExtractPlugin: true,
 });
@@ -18,6 +19,26 @@ config.performance = {
 };
 
 config.optimization = {
+  runtimeChunk: {
+    name: 'manifest',
+  },
+  splitChunks: {
+    chunks: 'async',
+    minSize: 30000,
+    minChunks: 1,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
+    name: false,
+    cacheGroups: {
+      vendor: {
+        name: 'vendor',
+        chunks: 'initial',
+        priority: -10,
+        reuseExistingChunk: false,
+        test: /[\\/]node_modules[\\/]/,
+      },
+    },
+  },
   minimizer: [
     new UglifyJsPlugin({
       sourceMap: true,
