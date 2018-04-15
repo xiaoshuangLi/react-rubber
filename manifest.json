@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "page-map",
+  "description": "The page map for web.",
+  "version": "1.0",
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": ["./src/index.js"]
+    }
+  ]
+}

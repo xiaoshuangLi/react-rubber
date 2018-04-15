@@ -1,11 +1,11 @@
 {
-  "name": "Resume",
+  "name": "page-map",
   "version": "1.0.0",
   "description": "",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:xiaoshuangLi/devtool.git"
+    "url": "git@github.com:xiaoshuangLi/page-map.git"
   },
   "scripts": {
     "start": "npm run production",

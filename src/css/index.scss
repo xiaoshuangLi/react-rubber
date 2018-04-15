@@ -1,7 +1,27 @@
-@import "./base";
+$width: 100px;
 
-body{
-  @include rules((
-    background-color: white,
-  ));
+body {
+  &.has-extension {
+    margin-right: $width;
+
+    @include rules((
+      transform: translate3d(0, 0, 0),
+    ));
+
+    .extension-page-app-container {
+      @include rules((
+        pointer-events: all,
+        opacity: 1,
+        transform: translate(0, 0),
+      ));
+    }
+  }
+
+  .extension-page-app-container {
+    @include rules((
+      pointer-events: none,
+      opacity: 0,
+      transform: translate(100%, 0),
+    ));
+  }
 }
