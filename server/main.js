@@ -1,27 +1,45 @@
 import http from 'http';
 import express from 'express';
 
-import React from 'react';
-import { renderToString, renderToNodeStream } from 'react-dom/server';
-import { Provider } from 'react-redux';
-import { StaticRouter } from 'react-router-dom';
-
-import routers from 'js/container/global/routes';
-
 import appConfig from '../config';
 
 const { webserver: { port = 3000 } = {} } = appConfig;
-
-const createStore = (state = {}) => ({
-  getState: () => state,
-  subscribe: _ => _,
-  dispatch: _ => _,
-});
 
 const splitHtmlTemp = (strings, ...keys) => ({
   strings,
   keys,
 });
+
+const getItems = (num) => {
+  let count = 0;
+  let res = `
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .test-item {
+        padding: 50px;
+        color: white;
+        text-shadow: 1px 1px 0 rgba(0,0,0, .1);
+      }
+    </style>
+  `;
+
+  while (count <= num) {
+    res = `
+      ${res}
+      <div class="test-item" style="background: hsla(${(360 * count / num).toFixed(4)}, 90%, 65%, 1">
+        ${count} ${(count === 0 || count === num) ? '我只想说一句表达我真诚意' : ''}
+      </div>
+    `;
+
+    count += 1;
+  }
+
+  return res;
+};
 
 const partHtmlTemp = splitHtmlTemp`
   <!DOCTYPE html>
@@ -38,7 +56,10 @@ const partHtmlTemp = splitHtmlTemp`
       ${'string'}
     </head>
     <body>
-      <div id="app">${'stream'}</div>
+      <div id="app">
+        ${'testHtml'}
+        ${'stream'}
+      </div>
       ${'string'}
     </body>
   </html>
@@ -65,32 +86,9 @@ const createTempString = (parameters = {}) => {
 
   return (comp) => {
     const compHtml = comp ? renderToString(comp) : '';
-    const list = [styles, compHtml, javascript];
+    const list = [styles, getItems(100), compHtml, javascript];
 
     return partHtmlTemp.strings.reduce((a, b, index) => `${a}${list[index - 1]}${b}`);
-  };
-};
-
-const createStreamString = (parameters = {}) => {
-  const obj = getStyleAndJavascript(parameters);
-
-  const { javascript = '', styles = '' } = obj;
-  const { keys = [], strings = [] } = partHtmlTemp;
-
-  let start = '';
-  let end = '';
-
-  strings.forEach((item = '', index) => {
-    if (index <= keys.indexOf('stream')) {
-      start = `${start}${item}${index === 0 ? styles : ''}`;
-    } else {
-      end = `${end}${index === strings.length - 1 ? javascript : ''}${item}`;
-    }
-  });
-
-  return {
-    start,
-    end,
   };
 };
 
@@ -104,42 +102,8 @@ export default function (parameters = {}) {
    * renderToString
    */
 
-  // app.use((req, res) => {
-  //   const store = createStore();
-  //   const comp = (
-  //     <Provider store={store}>
-  //       <StaticRouter location={req.url} context={{}}>
-  //         { routers }
-  //       </StaticRouter>
-  //     </Provider>
-  //   );
-
-  //   res.send(createTempString(parameters)(comp));
-  // });
-
-  /**
-   * renderToNodeStream
-   */
-
   app.use((req, res) => {
-    const store = createStore();
-    const comp = (
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={{}}>
-          { routers }
-        </StaticRouter>
-      </Provider>
-    );
-
-    const obj = createStreamString(parameters);
-    const stream = renderToNodeStream(comp);
-
-    res.write(obj.start);
-    stream.pipe(res, { end: false });
-    stream.on('end', () => {
-      res.write(obj.end);
-      res.end();
-    });
+    res.send(createTempString(parameters)());
   });
 
   server.listen(port, (error) => {

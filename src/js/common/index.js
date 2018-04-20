@@ -130,3 +130,29 @@ export function getUId() {
   baseId += 1;
   return baseId;
 }
+
+export function getStatreFromProps(nextProps = {}, prevState = {}, defaultState = {}) {
+  const keys = Object.keys(defaultState);
+
+  const newState = keys.reduce((a, key) => {
+    const stateValue = prevState[key];
+    const propsValue = nextProps[key];
+    const defaultValue = defaultState[key];
+
+    let value;
+
+    if (typeof defaultValue === 'object') {
+      const baseValue = Array.isArray(defaultValue) ? [] : {};
+
+      value = Object.assign(baseValue, stateValue, defaultValue, propsValue);
+    } else {
+      value = propsValue === undefined ? defaultValue : propsValue;
+    }
+
+    a[key] = value;
+
+    return a;
+  }, {});
+
+  return newState;
+};

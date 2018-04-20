@@ -1,0 +1,34 @@
+@import '~css/func/index';
+
+.components-mapper-render {
+  &:hover {
+    .content-container,
+    .content-mask {
+      @include rules((
+        transition: .3s,
+      ));
+    }
+  }
+
+  .mapper-content {
+    height: 100vh;
+
+    .content-container {
+      .container-body {
+        transform-origin: 0 0;
+      }
+    }
+
+    .content-mask {
+      background: rgba(white, .2);
+      box-shadow: 0 0 3px rgba(black, .1);
+
+      @include rules((
+        pointer-events: none,
+        position: absolute,
+        top: 0,
+        width: 100%,
+      ));
+    }
+  }
+}

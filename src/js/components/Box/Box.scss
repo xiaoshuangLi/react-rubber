@@ -1,0 +1,115 @@
+@import '~css/func/index';
+
+$red: #f85e53;
+$yellow: #ffbd24;
+$green: #2fca44;
+
+$fontWidth: 6px;
+
+@mixin boxTitle {
+  .box-title {
+    @include rules((
+      user-select: none,
+    ));
+  }
+}
+
+@mixin boxContent {
+  .box-content {
+    flex: 1;
+
+    @include rules((
+      overflow: auto,
+      position: relative,
+    ));
+  }
+}
+
+@mixin boxBorder {
+  .box-border {
+    > * {
+      @include rules((
+        position: absolute,
+        opacity: 0,
+      ));
+    }
+
+    .border-row{
+      height: 4px;
+      cursor: ns-resize;
+
+      @include rules((
+        left: 0,
+        right: 0,
+      ));
+    }
+
+    .border-col{
+      width: 4px;
+      cursor: ew-resize;
+
+      @include rules((
+        top: 0,
+        bottom: 0,
+      ));
+    }
+
+    .corner {
+      width: 10px;
+      height: 10px;
+
+      &.reverse {
+        cursor: nwse-resize;
+      }
+
+      &.front {
+        cursor: nesw-resize;
+      }
+    }
+
+    .top {
+      @include rules((
+        top: 0,
+      ));
+    }
+
+    .left {
+      @include rules((
+        left: 0,
+      ));
+    }
+
+    .right {
+      @include rules((
+        right: 0,
+      ));
+    }
+
+    .bottom {
+      @include rules((
+        bottom: 0,
+      ));
+    }
+  }
+}
+
+.components-box-render {
+  display: flex;
+  flex-direction: column;
+
+  &:not(.box-clean) {
+    box-shadow: 0 0 5px rgba(black, .3);
+
+    @include rules((
+      background-color: white,
+    ));
+
+    .box-content {
+      padding: 5px;
+    }
+  }
+
+  @include boxTitle;
+  @include boxContent;
+  @include boxBorder;
+}

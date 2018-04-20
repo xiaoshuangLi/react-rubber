@@ -1,0 +1,217 @@
+@import '~css/func/index';
+
+$red: #f85e53;
+$yellow: #ffbd24;
+$green: #2fca44;
+
+$fontWidth: 6px;
+
+@mixin macTitle {
+  .mac-title {
+    padding: 5px 10px;
+    background: #f4f4f4;
+    cursor: all-scroll;
+
+    @include rules((
+      font-size: 12px,
+      position: relative,
+    ));
+
+    .icons {
+      @include rules((
+        white-space: nowrap,
+      ));
+
+      .icon {
+        width: 16px;
+        height: 16px;
+
+        & + .icon {
+          margin-left: 5px;
+        }
+
+        @include rules((
+          position: relative,
+          display: inline-block,
+          border-radius: 50%,
+          text-align: center,
+          cursor: pointer,
+          vertical-align: middle,
+        ));
+
+        &:before,
+        &:after {
+          content: '';
+          box-shadow: 0 0 0 .5px black;
+
+          @extend %percenter;
+
+          @include rules((
+            display: inline-block,
+          ));       
+        }
+
+        &:before {
+          width: 0;
+          height: $fontWidth;
+        }
+
+        &:after {
+          height: 0;
+          width: $fontWidth;
+        }
+
+        &.close {
+          background: $red;
+          transform: rotate(45deg);
+        }
+
+        &.min {
+          background: $yellow;
+
+          &:before {
+            @include rules((
+              display: none,
+            ));
+          }
+        }
+
+        &.max {
+          background: $green;
+        }
+      }
+    }
+
+    .title {
+      right: 10px;
+      top: 50%;
+      transform: translate(0, -50%);
+      max-width: calc(100% - 100px);
+
+      @extend %ellipsis;
+
+      @include rules((
+        position: absolute,
+      ));
+    }
+  }
+}
+
+@mixin macContent {
+  .mac-content {
+    @include rules((
+      overflow: auto,
+    ));
+  }
+}
+
+@mixin macBorder {
+  .mac-border {
+    > * {
+      @include rules((
+        position: absolute,
+        opacity: 0,
+      ));
+    }
+
+    .border-row{
+      height: 4px;
+      cursor: ns-resize;
+
+      @include rules((
+        left: 0,
+        right: 0,
+      ));
+    }
+
+    .border-col{
+      width: 4px;
+      cursor: ew-resize;
+
+      @include rules((
+        top: 0,
+        bottom: 0,
+      ));
+    }
+
+    .corner {
+      width: 10px;
+      height: 10px;
+
+      &.reverse {
+        cursor: nwse-resize;
+      }
+
+      &.front {
+        cursor: nesw-resize;
+      }
+    }
+
+    .top {
+      @include rules((
+        top: 0,
+      ));
+    }
+
+    .left {
+      @include rules((
+        left: 0,
+      ));
+    }
+
+    .right {
+      @include rules((
+        right: 0,
+      ));
+    }
+
+    .bottom {
+      @include rules((
+        bottom: 0,
+      ));
+    }
+  }
+}
+
+.components-mac-render {
+  transition: .3s;
+
+  @include rules((
+    position: fixed,
+    top: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+  ));
+
+  &.mac-visible {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  &:not(.mac-visible) {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  &.mac-maximize {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .mac-box {
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(black, .3);
+    min-width: 100%;
+    min-height: 100%;
+
+    @include rules((
+      background-color: white,
+      overflow: hidden,
+    ));
+  }
+
+  @include macTitle;
+  @include macContent;
+  @include macBorder;
+}

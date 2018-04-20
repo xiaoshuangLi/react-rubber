@@ -1,12 +1,12 @@
-$width: 100px;
+@import "./func/index";
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   &.has-extension {
     margin-right: $width;
-
-    @include rules((
-      transform: translate3d(0, 0, 0),
-    ));
 
     .extension-page-app-container {
       @include rules((
@@ -18,10 +18,49 @@ body {
   }
 
   .extension-page-app-container {
+    width: $width;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    box-shadow: 0 0 3px rgba(black, .2);
+
     @include rules((
-      pointer-events: none,
+      position: fixed,
       opacity: 0,
+      pointer-events: none,
       transform: translate(100%, 0),
     ));
+  }
+
+  [class*='extension'] {
+    &,
+    * {
+      -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
+      box-sizing: border-box;
+      outline: none;
+      -webkit-overflow-scrolling: touch;
+      -webkit-text-size-adjust: none;
+      -webkit-perspective: 100%;
+    }
+
+    input, textarea {
+      -webkit-appearance: none;
+    }
+
+    input[type='number']::-webkit-inner-spin-button:before,
+    input[type='number']::-webkit-inner-spin-button:after,
+    input[type='number']::-webkit-inner-spin-button {
+      @include rules((
+        display: none,
+      ));
+    }
+
+    a {
+      @include rules((
+        color: inherit,
+        text-decoration: none,
+      ));
+    }
   }
 }

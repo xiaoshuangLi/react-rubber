@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+import Mapper from 'js/components/Mapper';
 
+class App extends Component {
   state = {};
 
   render() {
@@ -19,7 +16,7 @@ class App extends Component {
 
     return (
       <div className={cls}>
-        App
+        <Mapper />
       </div>
     );
   }
