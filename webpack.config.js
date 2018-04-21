@@ -1,34 +1,64 @@
 var path = require('path');
-var projectFolder = path.resolve(__dirname, '..');
+var projectFolder = path.resolve(__dirname);
 
 module.exports = {
   context: projectFolder,
+  devtool: 'source-map',
+  mode: 'production',
   entry: {
     main: [
-      'babel-polyfill',
-      './src/index.entry',
+      path.resolve(projectFolder, 'lib/js/index'),
     ],
   },
   output: {
-    path: path.resolve(projectFolder, 'public'),
+    path: path.resolve(projectFolder, 'lib'),
     publicPath: '/',
-    filename: 'js/[name].[hash].js',
-    chunkFilename: 'js/[name].[hash].js',
+    filename: 'main.js',
+    libraryTarget: 'umd',
+    library: "ReactRubber",
   },
   resolve: {
     modules: [
-      'src',
+      'lib',
       'node_modules',
     ],
-    alias: {
-      js: path.resolve(projectFolder, 'src/js'),
-      css: path.resolve(projectFolder, 'src/css'),
-      img: path.resolve(projectFolder, 'src/img'),
-    },
     extensions: ['.js', '.jsx', '.scss'],
   },
+  externals: [
+    {
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react',
+      },
+    },
+    {
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom',
+      },
+    },
+    // {
+    //   'prop-types': {
+    //     root: 'PropTypes',
+    //     commonjs2: 'prop-types',
+    //     commonjs: 'prop-types',
+    //     amd: 'prop-types',
+    //   },
+    // },
+    // {
+    //   'classnames': {
+    //     root: 'classnames',
+    //     commonjs2: 'classnames',
+    //     commonjs: 'classnames',
+    //     amd: 'classnames',
+    //   },
+    // },
+  ],
   module: {
-    strictThisContextOnImports: true,
     rules: [
       {
         test: /^(?!.*(_inline)).*\.(js|jsx)$/i,

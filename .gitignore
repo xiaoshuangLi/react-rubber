@@ -11,6 +11,7 @@ bundle-stats.html
 # assets
 assets/
 public/
+lib/
 
 # Dependency directories
 node_modules

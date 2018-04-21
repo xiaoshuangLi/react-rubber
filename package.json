@@ -1,61 +1,41 @@
 {
-  "name": "page-map",
-  "version": "1.0.0",
-  "description": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:xiaoshuangLi/page-map.git"
+  "name": "react-rubber",
+  "version": "0.0.1",
+  "description": "Someting can be dragged and resized.",
+  "main": "lib/js/index.js",
+  "engines": {
+    "node": ">=6"
   },
   "scripts": {
-    "start": "npm run production",
-    "dev": "npm-run-all development:server:build:prepare development",
-    "development": "npm-run-all --parallel development:client:build development:server:build development:services",
-    "development:server:build:prepare": "universal-webpack --settings ./webpack/universal-webpack-settings.json prepare",
-    "development:client:build": "babel-node ./webpack/webpack-dev-server.js",
-    "development:server:build": "webpack --mode development --config ./webpack/webpack.config.server.development.babel.js --watch --colors --display-error-details",
-    "development:server": "nodemon ./server/index.entry.js --watch ./server --watch ./public/server",
-    "development:services": "npm-run-all --parallel development:server",
-    "production": "npm-run-all production:client:build production:server:build production:services",
-    "production:client:build": "webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.client.production.babel.js",
-    "production:server:build": "webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.server.production.babel.js",
-    "production:server": "better-npm-run production:server",
-    "production:services": "npm-run-all --parallel production:server"
+    "test": "cp -rf src lib && babel lib/ -d lib/ && webpack",
+    "dev": "babel --watch src/ -d lib/",
+    "build": "babel src/ -d lib/",
+    "prepublish": "npm run build"
   },
-  "betterScripts": {
-    "production:server": {
-      "command": "node ./server/index.entry.js",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    }
-  },
-  "keywords": [
-    "express",
-    "react",
-    "redux"
+  "files": [
+    "lib"
   ],
-  "author": "Xiaoshuang",
-  "homepage": "http://xiaodifang.club",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaoshuangLi/react-rubber.git"
+  },
+  "author": "Xiaoshuang Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xiaoshuangLi/react-rubber/issues"
+  },
   "dependencies": {
     "classnames": "^2.2.5",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.0",
-    "react": "^16.2.0",
+    "react": "^16.3.0",
     "react-dom": "^16.1.1",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "^4.2.2",
-    "react-router-redux": "^5.0.0-alpha.8",
-    "react-transition-group": "^2.2.1",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0",
-    "redux-undo": "^0.6.1",
-    "require-dir": "^0.3.0",
-    "socket.io": "^2.0.4"
+    "require-dir": "^0.3.0"
+  },
+  "peerDependencies": {
+    "webpack": ">= 3",
+    "react": ">= 16.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -72,15 +52,9 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
     "better-npm-run": "^0.1.0",
-    "bluebird": "^3.5.1",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.4",
     "ejs-loader": "^0.3.0",
-    "eslint": "^4.11.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.0.1",
     "file-loader": "^1.1.5",
     "image-webpack-loader": "^3.4.2",
     "jsx-loader": "^0.13.2",
@@ -99,19 +73,12 @@
     "postcss-reporter": "^5.0.0",
     "postcss-simple-vars": "^4.0.0",
     "postcss-write-svg": "^3.0.1",
-    "react-hot-loader": "^4.0.0",
     "resolve-url-loader": "^2.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "svg-react-loader": "^0.4.4",
-    "uglifyjs-webpack-plugin": "^1.2.4",
-    "universal-webpack": "^0.6.2",
     "url-loader": "^0.6.2",
     "webpack": "^4.3.0",
-    "webpack-cli": "^2.0.13",
-    "webpack-dev-middleware": "^3.1.0",
-    "webpack-hot-middleware": "^2.20.0",
-    "webpack-isomorphic-tools": "^3.0.5",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "webpack-cli": "^2.0.13"
   }
 }

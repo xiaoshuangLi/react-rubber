@@ -3,7 +3,7 @@ import { hydrate } from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { getStatreFromProps } from 'js/common';
+import { getStatreFromProps, createDom } from 'js/utils';
 
 import Box from '../Box';
 
@@ -18,21 +18,7 @@ const defaultRect = {
   left: 100,
 };
 
-const create = () => {
-  if (typeof document === 'undefined') {
-    return;
-  }
-
-  if (!dom) {
-    dom = document.createElement('dom');
-    dom.classList.add('extension-mac-container');
-    document.body.appendChild(dom);
-  }
-
-  return dom;
-};
-
-const open = (opts = {}, target = create()) => {
+const open = (opts = {}, target = createDom()) => {
   const { children, ...others } = opts;
 
   if (!target) {

@@ -2,8 +2,6 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import Raven from '../Raven';
-
 class Drag extends Component {
   constructor(props) {
     super(props);

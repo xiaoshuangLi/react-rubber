@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { getStatreFromProps } from 'js/common';
+import { getStatreFromProps } from 'js/utils';
 
 import Drag from '../Drag';
 
