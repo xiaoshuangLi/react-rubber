@@ -1,6 +1,6 @@
 {
   "name": "react-rubber",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Someting can be dragged and resized.",
   "main": "lib/index.js",
   "engines": {

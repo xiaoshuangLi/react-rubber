@@ -43,6 +43,7 @@ $fontWidth: 6px;
         &:after {
           content: '';
           box-shadow: 0 0 0 .5px black;
+          transition: .3s;
 
           @extend %percenter;
 
@@ -197,6 +198,38 @@ $fontWidth: 6px;
   &.mac-maximize {
     width: 100vw;
     height: 100vh;
+
+    .mac-title {
+      .icons {
+        .icon {
+          &.max {
+            &:before,
+            &:after {
+              width: 0;
+              height: 0;
+              opacity: .5;
+              box-shadow: 0 0 0 0 transparent;
+              border-left: 3px solid transparent;
+              border-right: 3px solid transparent;
+              border-top: 3px solid transparent;
+              border-bottom: 3px solid transparent;
+            }
+
+            &:before {
+              border-left: 3px solid black;
+              border-bottom: 3px solid black;
+              transform: translate(-50%, -50%) translate(45%, -45%) scale(.8);
+            }
+
+            &:after {
+              border-top: 3px solid black;
+              border-right: 3px solid black;
+              transform: translate(-50%, -50%) translate(-45%, 45%) scale(.8);
+            }
+          }
+        }
+      }
+    }
   }
 
   .mac-box {

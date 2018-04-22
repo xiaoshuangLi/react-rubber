@@ -17,7 +17,7 @@ class Drag extends Component {
       y: 0,
     };
   }
-
+  
   static propTypes = {
     onMoveStart: PropTypes.func,
     onMove: PropTypes.func,

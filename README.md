@@ -72,7 +72,6 @@ onResize = (rect = {}) => {
 
 Mac.open(...macProps)
 Mac.close();
-
 ```
 
 

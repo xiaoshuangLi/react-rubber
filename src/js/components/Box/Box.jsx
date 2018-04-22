@@ -171,7 +171,7 @@ class Box extends Component {
     let newRect = Object.assign({}, oldRect, obj);
 
     if (onResize) {
-      newRect = onResize(newRect);
+      newRect = onResize(newRect) || newRect;
     }
 
     return newRect;
