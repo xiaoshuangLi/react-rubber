@@ -217,10 +217,4 @@ module.exports = {
       }),
     ],
   },
-  plugins: [
-    new CleanPlugin(
-      [path.relative(projectFolder, outputPath)],
-      { root: projectFolder }
-    ),
-  ],
 };

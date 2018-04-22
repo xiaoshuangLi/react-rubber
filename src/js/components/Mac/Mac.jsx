@@ -202,7 +202,6 @@ class Mac extends Component {
       onClickMin,
       onClickMax,
       onDoubleClickTitle,
-      onResize,
       ...others
     } = this.props;
 
@@ -226,7 +225,6 @@ class Mac extends Component {
           className="mac-box"
           title={titleNode}
           ref={this.boxRef}
-          onResize={this.onResize}
           {...others}>
           { this.renderContent() }
         </Box>

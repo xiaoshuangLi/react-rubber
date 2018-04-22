@@ -1,14 +1,14 @@
 {
   "name": "react-rubber",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Someting can be dragged and resized.",
   "main": "lib/index.js",
   "engines": {
     "node": ">=6"
   },
   "scripts": {
-    "dev": "babel --watch src/ -d lib/",
-    "build": "webpack --config webpack/webpack.config.codepen.js &&  webpack --config webpack/webpack.config.umd.js",
+    "dev": "webpack --watch --config webpack/webpack.config.prd.js",
+    "build": "rm -rf lib && webpack --config webpack/webpack.config.umd.js &&  webpack --config webpack/webpack.config.prd.js",
     "prepublish": "npm run build"
   },
   "files": [
