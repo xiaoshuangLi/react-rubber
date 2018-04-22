@@ -1,15 +1,14 @@
 {
   "name": "react-rubber",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Someting can be dragged and resized.",
-  "main": "lib/js/index.js",
+  "main": "lib/index.js",
   "engines": {
     "node": ">=6"
   },
   "scripts": {
-    "test": "cp -rf src lib && babel lib/ -d lib/ && webpack",
     "dev": "babel --watch src/ -d lib/",
-    "build": "babel src/ -d lib/",
+    "build": "webpack --config webpack/webpack.config.codepen.js &&  webpack --config webpack/webpack.config.umd.js",
     "prepublish": "npm run build"
   },
   "files": [
@@ -42,7 +41,6 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.2",
-    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-promise-to-bluebird": "^1.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -59,7 +57,6 @@
     "image-webpack-loader": "^3.4.2",
     "jsx-loader": "^0.13.2",
     "mathsass": "^0.10.1",
-    "mini-css-extract-plugin": "^0.3.0",
     "node-sass": "^4.6.1",
     "nodemon": "^1.17.2",
     "npm-run-all": "^4.1.2",

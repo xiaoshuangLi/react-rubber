@@ -1,63 +1,40 @@
 var path = require('path');
-var projectFolder = path.resolve(__dirname);
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var CleanPlugin = require('clean-webpack-plugin');
+
+var projectFolder = path.resolve(__dirname, '../');
+var outputPath = path.resolve(projectFolder, '../lib');
 
 module.exports = {
   context: projectFolder,
   devtool: 'source-map',
   mode: 'production',
+  performance: {
+    hints: false,
+  },
   entry: {
     main: [
-      path.resolve(projectFolder, 'lib/js/index'),
+      path.resolve(projectFolder, 'src/js/index'),
     ],
   },
   output: {
     path: path.resolve(projectFolder, 'lib'),
     publicPath: '/',
-    filename: 'main.js',
-    libraryTarget: 'umd',
-    library: "ReactRubber",
+    filename: 'index.js',
+    library: {
+      root: "ReactRubber",
+      amd: "ReactRubber",
+      commonjs: "react-rubber"
+    },
+    libraryTarget: "umd"
   },
   resolve: {
     modules: [
-      'lib',
+      'src',
       'node_modules',
     ],
     extensions: ['.js', '.jsx', '.scss'],
   },
-  externals: [
-    {
-      react: {
-        root: 'React',
-        commonjs2: 'react',
-        commonjs: 'react',
-        amd: 'react',
-      },
-    },
-    {
-      'react-dom': {
-        root: 'ReactDOM',
-        commonjs2: 'react-dom',
-        commonjs: 'react-dom',
-        amd: 'react-dom',
-      },
-    },
-    // {
-    //   'prop-types': {
-    //     root: 'PropTypes',
-    //     commonjs2: 'prop-types',
-    //     commonjs: 'prop-types',
-    //     amd: 'prop-types',
-    //   },
-    // },
-    // {
-    //   'classnames': {
-    //     root: 'classnames',
-    //     commonjs2: 'classnames',
-    //     commonjs: 'classnames',
-    //     amd: 'classnames',
-    //   },
-    // },
-  ],
   module: {
     rules: [
       {
@@ -215,4 +192,35 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          warnings: false,
+          output: {
+            beautify: false,
+            comments: false,
+          },
+          compress: {
+            warnings: false,
+            collapse_vars: true,
+            reduce_vars: true,
+          },
+          toplevel: false,
+          nameCache: null,
+          ie8: false,
+          keep_classnames: undefined,
+          keep_fnames: false,
+          safari10: false,
+        },
+      }),
+    ],
+  },
+  plugins: [
+    new CleanPlugin(
+      [path.relative(projectFolder, outputPath)],
+      { root: projectFolder }
+    ),
+  ],
 };

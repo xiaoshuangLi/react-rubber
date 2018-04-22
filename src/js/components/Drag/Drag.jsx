@@ -2,6 +2,8 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import { CLASS_NAME_PREFIX } from 'js/utils';
+
 class Drag extends Component {
   constructor(props) {
     super(props);
@@ -149,7 +151,7 @@ class Drag extends Component {
     } = this.props;
 
     const cls = classnames({
-      'components-drag-render': true,
+      [`${CLASS_NAME_PREFIX}components-drag-render`]: true,
       [className]: !!className,
     });
 

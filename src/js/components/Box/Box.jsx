@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { getStatreFromProps } from 'js/utils';
+import { getStatreFromProps, CLASS_NAME_PREFIX } from 'js/utils';
 
 import Drag from '../Drag';
 
@@ -244,7 +244,7 @@ class Box extends Component {
     } = rect;
 
     const cls = classnames({
-      'components-box-render': true,
+      [`${CLASS_NAME_PREFIX}components-box-render`]: true,
       'box-clean': !!clean,
       [className]: !!className,
     });

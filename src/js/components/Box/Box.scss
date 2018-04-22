@@ -93,7 +93,7 @@ $fontWidth: 6px;
   }
 }
 
-.components-box-render {
+.#{$CLASS_NAME_PREFIX}components-box-render {
   display: flex;
   flex-direction: column;
 

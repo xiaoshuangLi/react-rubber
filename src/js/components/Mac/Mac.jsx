@@ -3,7 +3,7 @@ import { hydrate } from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { getStatreFromProps, createDom } from 'js/utils';
+import { getStatreFromProps, createDom, CLASS_NAME_PREFIX } from 'js/utils';
 
 import Box from '../Box';
 
@@ -18,11 +18,12 @@ const defaultRect = {
   left: 100,
 };
 
-const open = (opts = {}, target = createDom()) => {
+const open = (opts = {}, target) => {
   const { children, ...others } = opts;
 
   if (!target) {
-    return;
+    dom = dom || createDom(`${CLASS_NAME_PREFIX}mac-container`);
+    target = dom;
   }
 
   if (others.controlled) {
@@ -209,7 +210,7 @@ class Mac extends Component {
     const stateMaximize = this.state.maximize;
 
     const cls = classnames({
-      'components-mac-render': true,
+      [`${CLASS_NAME_PREFIX}components-mac-render`]: true,
       'mac-visible': !!stateVisible,
       'mac-maximize': !!stateMaximize,
       [className]: !!className,

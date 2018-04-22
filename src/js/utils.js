@@ -1,13 +1,15 @@
-export function createDom(className = '') {
+export const CLASS_NAME_PREFIX = 'react-rubber-';
+
+const defaultClassName = `${CLASS_NAME_PREFIX}dom`;
+
+export function createDom(className = defaultClassName, tag = 'div') {
   if (typeof document === 'undefined') {
     return;
   }
 
-  if (!dom) {
-    dom = document.createElement(tag);
-    dom.classList.add(className);
-    document.body.appendChild(dom);
-  }
+  const dom = document.createElement(tag);
+  dom.classList.add(className);
+  document.body.appendChild(dom);
 
   return dom;
 };

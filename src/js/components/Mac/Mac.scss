@@ -173,7 +173,7 @@ $fontWidth: 6px;
   }
 }
 
-.components-mac-render {
+.#{$CLASS_NAME_PREFIX}components-mac-render {
   transition: .3s;
 
   @include rules((

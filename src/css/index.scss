@@ -1,6 +1,7 @@
 @import "./func/index";
 
-.react-box-style {
+.#{CLASS_NAME_PREFIX}box,
+[class*=#{CLASS_NAME_PREFIX}] {
   &,
   * {
     -webkit-tap-highlight-color: transparent;
